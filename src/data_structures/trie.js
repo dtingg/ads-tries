@@ -36,11 +36,11 @@ class Trie {
     let node = this._root;
 
     for (let radix in code) {
-      let node = node.children[radix];
-
       if (node === undefined) {
         return [];
       }
+
+      let node = node.children[radix];
     }
 
     return node.words;

@@ -16,10 +16,34 @@ class Trie {
 
   addWord(word) {
     const code = this.buildCode(word);
-    this._count += 1;
+
+    let node = this._root;
+
+    for (let radix in code) {
+      if (node.children[radix] === undefined) {
+        node.children[radix] = new TrieNode();
+      }
+      node = node.children[radix];
+    }
+
+    if (!node.words.includes(word)) {
+      node.words.push(word);
+      this._count += 1;
+    }
   }
 
   lookupCode(code) {
+    let node = this._root;
+
+    for (let radix in code) {
+      let node = node.children[radix];
+
+      if (node === undefined) {
+        return [];
+      }
+    }
+
+    return node.words;
   }
 
   lookupPrefix(codePrefix) {

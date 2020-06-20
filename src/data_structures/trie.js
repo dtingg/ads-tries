@@ -43,11 +43,27 @@ class Trie {
         return [];
       }
     }
-
     return node.words;
   }
 
   lookupPrefix(codePrefix) {
+    let node = this._root;
+
+    for (let radix in codePrefix) {
+      node = node.children[radix];
+
+      if (node === undefined) {
+        return [];
+      }
+    }
+
+    return node.words;
+
+
+    
+
+
+
   }
 
   count() {

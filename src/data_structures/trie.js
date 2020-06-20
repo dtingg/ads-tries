@@ -46,6 +46,18 @@ class Trie {
     return node.words;
   }
 
+  findAllResults(node, results=[]) {
+    for (let word of node.words) {
+      results.push(word);
+    }
+
+    node.children[Symbol.iterator] = function(child) {
+      this.findAllResults(child, results);
+    }
+
+    return results
+  }
+
   lookupPrefix(codePrefix) {
     let node = this._root;
 
@@ -57,13 +69,9 @@ class Trie {
       }
     }
 
-    return node.words;
+    let result = this.findAllResults(node);
 
-
-    
-
-
-
+    return result;
   }
 
   count() {

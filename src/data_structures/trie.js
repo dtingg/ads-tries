@@ -16,6 +16,7 @@ class Trie {
 
   addWord(word) {
     const code = this.buildCode(word);
+    this._count += 1;
   }
 
   lookupCode(code) {

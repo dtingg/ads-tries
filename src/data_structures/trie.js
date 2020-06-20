@@ -22,8 +22,9 @@ class Trie {
     for (let radix in code) {
       if (node.children[radix] === undefined) {
         node.children[radix] = new TrieNode();
-      }
+      } 
       node = node.children[radix];
+      
     }
 
     if (!node.words.includes(word)) {
@@ -36,11 +37,11 @@ class Trie {
     let node = this._root;
 
     for (let radix in code) {
+      node = node.children[radix];
+
       if (node === undefined) {
         return [];
       }
-
-      let node = node.children[radix];
     }
 
     return node.words;

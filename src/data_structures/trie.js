@@ -56,7 +56,7 @@ class Trie {
 
     let children = node.children;
 
-    for (let [key, value] of Object.entries(children)) {
+    for (let key of Object.keys(children)) {
       this.findAllResults(children[key], results)
     }
 

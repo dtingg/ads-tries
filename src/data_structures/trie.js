@@ -19,12 +19,13 @@ class Trie {
 
     let node = this._root;
 
-    for (let radix in code) {
-      if (node.children[radix] === undefined) {
-        node.children[radix] = new TrieNode();
+    for (let radix of code) {
+      let letter = radix.toLowerCase();
+
+      if (node.children[letter] === undefined) {
+        node.children[letter] = new TrieNode();
       } 
-      node = node.children[radix];
-      
+      node = node.children[letter];
     }
 
     if (!node.words.includes(word)) {
@@ -36,8 +37,10 @@ class Trie {
   lookupCode(code) {
     let node = this._root;
 
-    for (let radix in code) {
-      node = node.children[radix];
+    for (let radix of code) {
+      let letter = radix.toLowerCase();
+
+      node = node.children[letter];
 
       if (node === undefined) {
         return [];
@@ -51,8 +54,10 @@ class Trie {
       results.push(word);
     }
 
-    node.children[Symbol.iterator] = function(child) {
-      this.findAllResults(child, results);
+    let children = node.children;
+
+    for (let [key, value] of Object.entries(children)) {
+      this.findAllResults(children[key], results)
     }
 
     return results
@@ -61,8 +66,10 @@ class Trie {
   lookupPrefix(codePrefix) {
     let node = this._root;
 
-    for (let radix in codePrefix) {
-      node = node.children[radix];
+    for (let radix of codePrefix) {
+      let letter = radix.toLowerCase();
+
+      node = node.children[letter];
 
       if (node === undefined) {
         return [];
